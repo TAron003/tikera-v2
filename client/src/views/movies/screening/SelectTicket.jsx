@@ -1,5 +1,7 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { FaPlus } from "react-icons/fa";
+import { FaMinus } from "react-icons/fa";
 import { setPricings } from '../../../store/movieSlice';
 
 export const SelectTicket = () => {
@@ -61,11 +63,11 @@ export const SelectTicket = () => {
                         </label>
                         <div className="relative flex items-center self-center m-auto mt-1 mb-1">
                             <button type="button" id="decrement-button" onClick={() => handleClickDec(i)} className="shrink-0 bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600 hover:bg-gray-200 inline-flex items-center justify-center border border-gray-300 rounded-md h-5 w-5 focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-2 focus:outline-none">
-                                -
+                                <FaMinus />
                             </button>
                             <input type="text" id={`Tickets${i}`} className="shrink-0 text-gray-900 dark:text-white border-0 bg-transparent text-sm font-normal focus:outline-none focus:ring-0 max-w-[2.5rem] text-center" placeholder={pricing.count} value={pricing.count} min='0' max={availableSeats} required onChange={(e) => handleChange(e)} />
                             <button type="button" id="increment-button" onClick={() => handleClickInc(i)} className="shrink-0 bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600 hover:bg-gray-200 inline-flex items-center justify-center border border-gray-300 rounded-md h-5 w-5 focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-2 focus:outline-none">
-                                +
+                                <FaPlus />
                             </button>
                         </div>
                         <p id={`${pricing.type}Total`} className="text-right m-auto mr-2.5">{pricing.count * pricing.price} Ft</p>
