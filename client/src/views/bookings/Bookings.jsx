@@ -1,8 +1,7 @@
 import React from 'react'
 import { useGetUserBookingsQuery } from '../../store/userApi'
-import { MdNavigateNext } from "react-icons/md";
-import { MdNavigateBefore } from "react-icons/md";
 import { Booking } from './Booking'
+
 export const Bookings = () => {
     const {data, isLoading, isError} = useGetUserBookingsQuery()
     if (isLoading) return <span className="loading loading-spinner loading-md"></span>
