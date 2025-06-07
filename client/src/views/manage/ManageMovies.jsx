@@ -110,6 +110,7 @@ export const ManageMovies = () => {
             const id = selectedMovie.id
             const movie = formData
             updateMovie({ id, movie })
+            dispatch(setMovie(movies.find(movie => movie.id == id)))
         }
             
     }

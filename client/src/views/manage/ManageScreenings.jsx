@@ -136,6 +136,7 @@ export const ManageScreenings = () => {
             const id = selectedScreening.id
             const screening = formData
             updateScreening({ id, screening })
+            dispatch(setScreening(sortedScreeningsData.find(screening => screening.id == id)))
         }
             
     }
