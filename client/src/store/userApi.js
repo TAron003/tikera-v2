@@ -1,12 +1,13 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 const accessToken = JSON.parse(localStorage.getItem('user'))?.data.token.split('|')[1] ?? null
+const apiURL = import.meta.env.VITE_API_URL
 
 // Define a service using a base URL and expected endpoints
 export const userApi = createApi({
     reducerPath: 'user',
     baseQuery: fetchBaseQuery({ 
-        baseUrl: import.meta.env.VITE_API_URL,
+        baseUrl: `${apiURL}/api/`,
         prepareHeaders: (headers) => {
             headers.set('Authorization', `Bearer ${accessToken}`)
             return headers
