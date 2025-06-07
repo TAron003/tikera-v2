@@ -1,5 +1,4 @@
-import React from 'react'
-import { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useGetAllMoviesQuery } from '../../store/moviesApi'
 import { MdFileUpload } from "react-icons/md"
 import { IoMdClose } from 'react-icons/io'
@@ -19,7 +18,9 @@ export const ScreeningForm = ({edit, handleClickClose, handleSubmit}) => {
     }
     const [formData, setFormData] = useState(edit ?? defaultData)
 
-    console.log(formData)
+    useEffect(() => {
+        setFormData(edit ?? defaultData)
+    }, [edit])
 
     const handleInput = (e) => {
         setFormData({

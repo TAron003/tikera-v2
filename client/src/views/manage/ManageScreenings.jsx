@@ -93,7 +93,6 @@ export const ManageScreenings = () => {
 
     useEffect(() => {
         if (selectedScreening) {
-            console.log(selectedScreening)
             setEdit({
                 movie_id: selectedScreening.movie.id,
                 room_id: selectedScreening.room.rows == 10 ? 1 : 2,
@@ -101,13 +100,14 @@ export const ManageScreenings = () => {
                 start_time: selectedScreening.start_time
             })
             setIsEditing(true)
+        } else {
+            setEdit(null)
+            setIsEditing(false)
         }
     }, [selectedScreening, setEdit, setIsEditing])
     
     if (isScreeningsLoading || isMoviesLoading) return <span className="loading loading-spinner loading-md"></span>
     if (isScreeningsError || isMoviesError) return <span>Error</span>
-
-    console.log(screeningModal)
     
     const movies = movieData?.data.filter(
         movie => movie.screenings.some(screening => screening.week_number == weekNumber && screening.week_day == weekDay)
@@ -121,7 +121,7 @@ export const ManageScreenings = () => {
     }
 
     const getDateToScreening = (id) => {
-        return movies.find(movie => movie.screenings.find(screening => screening.id == id)).date
+        return movies.find(movie => movie.screenings.find(screening => screening.id == id)).screenings.find(screening => screening.id == id).date
     }
 
     const screeningsData = screenings.map(screening => {
@@ -135,8 +135,6 @@ export const ManageScreenings = () => {
 
     const sortedScreeningsData = screeningsData.sort((a, b) => a.movie.title.localeCompare(b.movie.title))
 
-    console.log(sortedScreeningsData)
-
     const handleClickAdd = () => {
         dispatch(setScreening(null))
         setEdit(null)
@@ -145,14 +143,19 @@ export const ManageScreenings = () => {
     }
 
     const handleClickEdit = (screening) => {
-        console.log(screening)
         dispatch(setScreening(screening))
-        console.log(selectedScreening)
+        setEdit({
+            movie_id: screening.movie.id,
+            room_id: screening.room.rows == 10 ? 1 : 2,
+            date: screening.date,
+            start_time: screening.start_time
+        })
+        setIsEditing(true)
+        screeningModal.showModal()
     }
 
     const handleSubmit = (e, formData, edit) => {
         e.preventDefault()
-        console.log(formData)
         if (edit == null)
         {
             createScreening(formData)
@@ -162,7 +165,7 @@ export const ManageScreenings = () => {
             const id = selectedScreening.id
             const screening = formData
             updateScreening({ id, screening })
-            dispatch(setScreening(sortedScreeningsData.find(screening => screening.id == id)))
+            dispatch(setScreening(null))
         }
         screeningModal.close()
     }
@@ -189,7 +192,7 @@ export const ManageScreenings = () => {
     const handleClickClose = () => {
         dispatch(setScreening(null))
         setIsEditing(false)
-        movieModal.close()
+        screeningModal.close()
     }
 
     return (
@@ -282,29 +285,6 @@ export const ManageScreenings = () => {
                     </tbody>
                 </table>
             </div>
-                {/*
-                    selectedScreening == null ? <></> : 
-                    <div className="grid grid-cols-2 p-2.5 m-2.5 bg-slate-700 rounded-xl lg:flex-row">
-                        <img src={selectedScreening.movie.image_path} className="rounded-xl h-100 m-auto mt-2.5 mb-2.5"/>
-                        <div className="grid grid-cols-1 text-left h-fit p-2.5">
-                            <h2 className="text-2xl">{selectedScreening.movie.title}</h2>
-                            <aside>{selectedScreening.movie.release_year} | {selectedScreening.movie.genre} | {selectedScreening.movie.duration} minutes</aside>
-                            <p className="pt-2.5 pb-2.5">
-                                {selectedScreening.movie.description}
-                            </p>
-                            <p className="pt-2.5 pb-2.5">
-                                {selectedScreening.date}, {selectedScreening.start_time}<br/>
-                                {selectedScreening.room.rows == 10 ? 'Grand Hall' : 'Small Theater'}<br/>
-                                Total seats: {selectedScreening.room.rows * selectedScreening.room.seatsPerRow}<br/>
-                                Available seats: {selectedScreening.room.rows * selectedScreening.room.seatsPerRow - selectedScreening.bookings.length}
-                            </p>
-                            <div className="grid grid-cols-2">
-                                <button className="btn btn-ghost rounded-xl p-2.5 m-auto mt-1.5 mb-1.5 bg-slate-700" onClick={handleClickEdit}><FaEdit /> Edit</button>
-                                <button className="btn btn-ghost rounded-xl p-2.5 m-auto mt-1.5 mb-1.5 bg-slate-700" onClick={handleClickDelete}><MdDelete /> Delete</button>
-                            </div>
-                        </div>
-                    </div>
-                */}
             <dialog id="screeningModal" className='modal fixed inset-0 bg-slate-900 bg-opacity-50 flex items-center justify-center z-50'>
                 <ScreeningForm edit={edit} handleClickClose={handleClickClose} handleSubmit={handleSubmit} />
             </dialog>
