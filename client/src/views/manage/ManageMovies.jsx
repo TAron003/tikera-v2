@@ -69,16 +69,16 @@ export const ManageMovies = () => {
             setDeleteFail(true)
         }
     }, [isDeleteError])
-    
-    if (isLoading) return <span className="loading loading-spinner loading-md"></span>
-    if (isError) return <span>Error</span>
-    const movies = data.data
 
     useEffect(() => {
         if (isEditing) {
             movieModal.showModal()
         }
     }, [isEditing, movieModal])
+    
+    if (isLoading) return <span className="loading loading-spinner loading-md"></span>
+    if (isError) return <span>Error</span>
+    const movies = data.data
 
     const handleClick = (movie) => {
         dispatch(setMovie(movie))
