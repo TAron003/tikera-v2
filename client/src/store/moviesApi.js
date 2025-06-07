@@ -9,7 +9,7 @@ export const moviesApi = createApi({
     baseQuery: fetchBaseQuery({ 
         baseUrl: `${apiURL}/api/`,
         prepareHeaders: (headers, { getState }) => {
-            console.log(apiURL)
+            console.log(`${apiURL}/api/`)
             console.log(accessToken)
             headers.set('Authorization', `Bearer ${accessToken}`)
             return headers
