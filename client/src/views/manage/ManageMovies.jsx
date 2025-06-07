@@ -224,7 +224,7 @@ export const ManageMovies = () => {
                         </div>
                     </div>
                 }
-                <MovieForm id={"movieModal"} edit={edit} setIsEditing={setIsEditing} handleSubmit={handleSubmit} />
+                <MovieForm id="movieModal" edit={edit} setIsEditing={setIsEditing} handleSubmit={handleSubmit} />
             </div>
         </div>
         </>

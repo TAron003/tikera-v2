@@ -272,7 +272,7 @@ export const ManageScreenings = () => {
                         </div>
                     </div>
                 }
-                <ScreeningForm id={"screeningModal"} edit={edit} setIsEditing={setIsEditing} handleSubmit={handleSubmit} />
+                <ScreeningForm id="screeningModal" edit={edit} setIsEditing={setIsEditing} handleSubmit={handleSubmit} />
             </div>
         </div>
         </>
