@@ -149,6 +149,11 @@ export const ManageMovies = () => {
         setDeleteSuccess(false)
         setDeleteFail(false)
     }
+
+    const handleClickClose = () => {
+        setIsEditing(false)
+        movieModal.close()
+    }
     
     return (
         <>
@@ -232,7 +237,7 @@ export const ManageMovies = () => {
                     </div>
                 }
                 <dialog id="movieModal" className='modal fixed inset-0 bg-slate-900 bg-opacity-50 flex items-center justify-center z-50'>
-                    <MovieForm edit={edit} setIsEditing={setIsEditing} handleSubmit={handleSubmit} />
+                    <MovieForm edit={edit} handleClickClose={handleClickClose} handleSubmit={handleSubmit} />
                 </dialog>
             </div>
         </div>

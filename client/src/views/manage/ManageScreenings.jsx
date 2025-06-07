@@ -178,6 +178,11 @@ export const ManageScreenings = () => {
         setDeleteFail(false)
     }
 
+    const handleClickClose = () => {
+        setIsEditing(false)
+        movieModal.close()
+    }
+
     return (
         <>
         {addSuccess && <div className="toast">
@@ -282,7 +287,7 @@ export const ManageScreenings = () => {
                     </div>
                 }
                 <dialog id="screeningModal" className='modal fixed inset-0 bg-slate-900 bg-opacity-50 flex items-center justify-center z-50'>
-                    <ScreeningForm edit={edit} setIsEditing={setIsEditing} handleSubmit={handleSubmit} />
+                    <ScreeningForm edit={edit} handleClickClose={handleClickClose} handleSubmit={handleSubmit} />
                 </dialog>
             </div>
         </div>

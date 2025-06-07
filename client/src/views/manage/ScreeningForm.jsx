@@ -4,7 +4,7 @@ import { useGetAllMoviesQuery } from '../../store/moviesApi'
 import { MdFileUpload } from "react-icons/md"
 import { IoMdClose } from 'react-icons/io'
 
-export const ScreeningForm = ({edit, setIsEditing, handleSubmit}) => {
+export const ScreeningForm = ({edit, handleClickClose, handleSubmit}) => {
     const {data: movieData, isLoading: isMoviesLoading, isError: isMoviesError} = useGetAllMoviesQuery()
     if (isMoviesLoading) return <span className="loading loading-spinner loading-md"></span>
     if (isMoviesError) return <span>Error</span>
@@ -61,7 +61,7 @@ export const ScreeningForm = ({edit, setIsEditing, handleSubmit}) => {
                         <button className='btn btn-ghost rounded-xl p-2.5 m-auto mt-1.5 mb-1.5 bg-slate-700' onClick={(e) => handleSubmit(e, formData, edit)}>
                             <MdFileUpload /> Save
                         </button>
-                        <button className='btn btn-ghost rounded-xl p-2.5 m-auto mt-1.5 mb-1.5 bg-slate-700' onClick={() => setIsEditing(false)}>
+                        <button className='btn btn-ghost rounded-xl p-2.5 m-auto mt-1.5 mb-1.5 bg-slate-700' onClick={handleClickClose}>
                             <IoMdClose /> Cancel
                         </button>
                     </div>

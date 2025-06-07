@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { MdFileUpload } from "react-icons/md"
 import { IoMdClose } from 'react-icons/io'
 
-export const MovieForm = ({ edit, setIsEditing, handleSubmit }) => {
+export const MovieForm = ({ edit, handleClickClose, handleSubmit }) => {
     const defaultData = {
         title: 'Thunderbolts*',
         description: 'A group of anti-heroes have to face with a foe who is far beyond their powers and try to save the world from destruction.',
@@ -45,7 +45,7 @@ export const MovieForm = ({ edit, setIsEditing, handleSubmit }) => {
                     <button className='btn btn-ghost rounded-xl p-2.5 m-auto mt-1.5 mb-1.5 bg-slate-700' onClick={(e) => handleSubmit(e, formData, edit)}>
                         <MdFileUpload /> Save
                     </button>
-                    <button className='btn btn-ghost rounded-xl p-2.5 m-auto mt-1.5 mb-1.5 bg-slate-700' onClick={() => setIsEditing(false)}>
+                    <button className='btn btn-ghost rounded-xl p-2.5 m-auto mt-1.5 mb-1.5 bg-slate-700' onClick={handleClickClose}>
                         <IoMdClose /> Cancel
                     </button>
                 </div>
