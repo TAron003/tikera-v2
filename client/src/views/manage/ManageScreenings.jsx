@@ -82,10 +82,27 @@ export const ManageScreenings = () => {
     }, [isDeleteError])
 
     useEffect(() => {
-        if (isEditing) {
-            screeningModal.showModal()
+        if(screeningModal)
+        {
+            if (isEditing)
+                screeningModal.showModal()
+            else
+                screeningModal.close()
         }
     }, [isEditing, screeningModal])
+
+    useEffect(() => {
+        if (selectedScreening) {
+            console.log(selectedScreening)
+            setEdit({
+                movie_id: selectedScreening.movie.id,
+                room_id: selectedScreening.room.rows == 10 ? 1 : 2,
+                date: selectedScreening.date,
+                start_time: selectedScreening.start_time
+            })
+            setIsEditing(true)
+        }
+    }, [selectedScreening, setEdit, setIsEditing])
     
     if (isScreeningsLoading || isMoviesLoading) return <span className="loading loading-spinner loading-md"></span>
     if (isScreeningsError || isMoviesError) return <span>Error</span>
@@ -100,11 +117,11 @@ export const ManageScreenings = () => {
     )
 
     const getMovieToScreening = (id) => {
-        return movies.filter(movie => movie.screenings.some(screening => screening.id == id))[0]
+        return movies.find(movie => movie.screenings.find(screening => screening.id == id))
     }
 
     const getDateToScreening = (id) => {
-        return movies.filter(movie => movie.screenings.some(screening => screening.id == id))[0].screenings.find(screening => screening.id == id).date
+        return movies.find(movie => movie.screenings.find(screening => screening.id == id)).date
     }
 
     const screeningsData = screenings.map(screening => {
@@ -120,10 +137,6 @@ export const ManageScreenings = () => {
 
     console.log(sortedScreeningsData)
 
-    const handleClick = (screening) => {
-        dispatch(setScreening(screening))
-    }
-
     const handleClickAdd = () => {
         dispatch(setScreening(null))
         setEdit(null)
@@ -131,15 +144,10 @@ export const ManageScreenings = () => {
         screeningModal.showModal()
     }
 
-    const handleClickEdit = () => {
-        setEdit({
-            movie_id: selectedScreening.movie.id,
-            room_id: selectedScreening.room.rows == 10 ? 1 : 2,
-            date: selectedScreening.date,
-            start_time: selectedScreening.start_time
-        })
-        setIsEditing(true)
-        screeningModal.showModal()
+    const handleClickEdit = (screening) => {
+        console.log(screening)
+        dispatch(setScreening(screening))
+        console.log(selectedScreening)
     }
 
     const handleSubmit = (e, formData, edit) => {
@@ -159,8 +167,8 @@ export const ManageScreenings = () => {
         screeningModal.close()
     }
 
-    const handleClickDelete = () => {
-        deleteScreening(selectedScreening.id)
+    const handleClickDelete = (id) => {
+        deleteScreening(id)
     }
 
     const handleAddClose = () => {
@@ -179,6 +187,7 @@ export const ManageScreenings = () => {
     }
 
     const handleClickClose = () => {
+        dispatch(setScreening(null))
         setIsEditing(false)
         movieModal.close()
     }
@@ -221,7 +230,6 @@ export const ManageScreenings = () => {
             <button className="btn btn-ghost" onClick={handleDeleteClose}><IoMdClose /></button>
             </div>
         </div>}
-        <div className='grid grid-cols-2'>
             <div className='h-fit w-fit m-auto'>
                 <Days />
                 <table className='table table-zebra bg-slate-700 rounded-xl'>
@@ -233,6 +241,8 @@ export const ManageScreenings = () => {
                             <th>Room</th>
                             <th>Total seats</th>
                             <th>Available seats</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -245,7 +255,7 @@ export const ManageScreenings = () => {
                         </tr>
                     {
                         sortedScreeningsData.map(screening => 
-                            <tr key={screening.id} onClick={() => handleClick(screening)}>
+                            <tr key={screening.id}>
                                 <td>{screening.movie.title}</td>
                                 <td>{new Date(Date.parse(screening.date)).toLocaleDateString('hu-HU', {
                                     year: 'numeric',
@@ -256,14 +266,23 @@ export const ManageScreenings = () => {
                                 <td>{screening.room.rows == 10 ? 'Grand Hall' : 'Small Theater'}</td>
                                 <td>{screening.room.rows * screening.room.seatsPerRow}</td>
                                 <td>{screening.room.rows * screening.room.seatsPerRow - screening.bookings.length}</td>
+                                <td>
+                                    <button className="btn btn-ghost rounded-xl p-2.5 m-auto mt-1.5 mb-1.5" onClick={() => handleClickEdit(screening)}>
+                                        <FaEdit />
+                                    </button>
+                                </td>
+                                <td>
+                                    <button className="btn btn-ghost rounded-xl p-2.5 m-auto mt-1.5 mb-1.5" onClick={() => handleClickDelete(screening.id)}>
+                                        <MdDelete />
+                                    </button>
+                                </td>
                             </tr>
                         )
                     }
                     </tbody>
                 </table>
             </div>
-            <div className='h-fit'>
-                {
+                {/*
                     selectedScreening == null ? <></> : 
                     <div className="grid grid-cols-2 p-2.5 m-2.5 bg-slate-700 rounded-xl lg:flex-row">
                         <img src={selectedScreening.movie.image_path} className="rounded-xl h-100 m-auto mt-2.5 mb-2.5"/>
@@ -285,12 +304,10 @@ export const ManageScreenings = () => {
                             </div>
                         </div>
                     </div>
-                }
-                <dialog id="screeningModal" className='modal fixed inset-0 bg-slate-900 bg-opacity-50 flex items-center justify-center z-50'>
-                    <ScreeningForm edit={edit} handleClickClose={handleClickClose} handleSubmit={handleSubmit} />
-                </dialog>
-            </div>
-        </div>
+                */}
+            <dialog id="screeningModal" className='modal fixed inset-0 bg-slate-900 bg-opacity-50 flex items-center justify-center z-50'>
+                <ScreeningForm edit={edit} handleClickClose={handleClickClose} handleSubmit={handleSubmit} />
+            </dialog>
         </>
     )
 }

@@ -38,7 +38,7 @@ export const ManageMovies = () => {
             setAddSuccess(true)
             movieModal.close()
         }
-    }, [isAddSuccess, dataAdd, setIsEditing])
+    }, [isAddSuccess, dataAdd, setIsEditing, movieModal])
 
     useEffect(() => {
         if (isAddError) {
@@ -52,9 +52,10 @@ export const ManageMovies = () => {
             setIsEditing(false)
             setEdit(null)
             setUpdateSuccess(true)
+            dispatch(setMovie(null))
             movieModal.close()
         }
-    }, [isUpdateSuccess, dataUpdate, setIsEditing, setEdit])
+    }, [isUpdateSuccess, dataUpdate, setIsEditing, setEdit, dispatch, movieModal])
 
     useEffect(() => {
         if (isUpdateError) {
@@ -64,12 +65,10 @@ export const ManageMovies = () => {
 
     useEffect(() => {
         if (isDeleteSuccess) {
-            console.log("Movie deleted successfully: ", dataDelete)
-            setIsEditing(false)
-            dispatch(setMovie(null))
+            console.log("Movie deleted successfully.")
             setDeleteSuccess(true)
         }
-    }, [isDeleteSuccess, dataDelete, setIsEditing])
+    }, [isDeleteSuccess])
 
     useEffect(() => {
         if (isDeleteError) {
@@ -78,21 +77,29 @@ export const ManageMovies = () => {
     }, [isDeleteError])
 
     useEffect(() => {
-        if (isEditing) {
+        if (isEditing)
             movieModal.showModal()
-        }
+        else
+            movieModal.close()
     }, [isEditing, movieModal])
+
+    useEffect(() => {
+        if (selectedMovie) {
+            setEdit({
+                title: selectedMovie.title,
+                description: selectedMovie.description,
+                duration: selectedMovie.duration,
+                genre: selectedMovie.genre,
+                release_year: selectedMovie.release_year,
+                image_path: selectedMovie.image_path
+            })
+            setIsEditing(true)
+        }
+    }, [selectedMovie, setEdit, setIsEditing])
     
     if (isMoviesLoading) return <span className="loading loading-spinner loading-md"></span>
     if (isMoviesError) return <span>Error</span>
     const movies = data.data
-
-    console.log(movieModal)
-
-    const handleClick = (movie) => {
-        dispatch(setMovie(movie))
-        setIsEditing(false)
-    }
 
     const handleClickAdd = () => {
         dispatch(setMovie(null))
@@ -101,22 +108,12 @@ export const ManageMovies = () => {
         movieModal.showModal()
     }
 
-    const handleClickEdit = () => {
-        setEdit({
-            title: selectedMovie.title,
-            description: selectedMovie.description,
-            duration: selectedMovie.duration,
-            genre: selectedMovie.genre,
-            release_year: selectedMovie.release_year,
-            image_path: selectedMovie.image_path
-        })
-        setIsEditing(true)
-        movieModal.showModal()
+    const handleClickEdit = (movie) => {
+        dispatch(setMovie(movie))
     }
 
     const handleSubmit = (e, formData, edit) => {
         e.preventDefault()
-        console.log(formData)
         if (edit == null)
         {
             createMovie(formData)
@@ -131,8 +128,8 @@ export const ManageMovies = () => {
         movieModal.close()
     }
 
-    const handleClickDelete = () => {
-        deleteMovie(selectedMovie.id)
+    const handleClickDelete = (id) => {
+        deleteMovie(id)
     }
 
     const handleAddClose = () => {
@@ -151,6 +148,7 @@ export const ManageMovies = () => {
     }
 
     const handleClickClose = () => {
+        dispatch(setMovie(null))
         setIsEditing(false)
         movieModal.close()
     }
@@ -193,18 +191,16 @@ export const ManageMovies = () => {
                 <button className="btn btn-ghost" onClick={handleDeleteClose}><IoMdClose /></button>
                 </div>
             </div>}
-            <div className='grid grid-cols-2'>
-            <div className='h-fit'>
-                <div className='grid grid-cols-3'>
-                    <div id={`addMovie`} onClick={handleClickAdd} className="grid grid-cols-1 btn btn-ghost h-fit m-auto mt-2.5 mb-2.5 p-2.5 rounded-xl bg-slate-700 w-45">
-                        <img src='https://api-tikera.codence.hu/public/storage/movies/default.jpg' className="rounded-xl h-50 m-auto mt-2.5 mb-2.5"/>
-                        <button className='btn btn-ghost rounded-xl m-auto mt-1.5 mb-1.5'>
-                            <IoMdAdd /> Add movie
-                        </button>
-                    </div>
+            <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 h-fit gap-x-5 m-auto mb-2.5 mt-2.5'>
+                <div id={`addMovie`} onClick={handleClickAdd} className="grid grid-cols-1 btn btn-ghost h-fit m-auto mt-2.5 mb-2.5 p-2.5 rounded-xl bg-slate-700 w-45">
+                    <img src='https://api-tikera.codence.hu/public/storage/movies/default.jpg' className="rounded-xl h-50 m-auto mt-2.5 mb-2.5"/>
+                    <button className='btn btn-ghost rounded-xl m-auto mt-1.5 mb-1.5'>
+                        <IoMdAdd /> Add movie
+                    </button>
+                </div>
                 {
                     movies.map(movie => 
-                        <div key={movie.id - 1} id={`movie${movie.id}`} onClick={() => handleClick(movie)} className="grid grid-cols-1 btn btn-ghost h-fit m-auto mt-2.5 mb-2.5 p-2.5 rounded-xl bg-slate-700 w-45">
+                        <div key={movie.id - 1} id={`movie${movie.id}`} className="grid grid-cols-1 btn btn-ghost h-fit m-auto mt-2.5 mb-2.5 p-2.5 rounded-xl bg-slate-700 w-45">
                             <img src={movie.image_path} className="rounded-xl h-50 m-auto mt-2.5 mb-2.5"/>
                             <div className="grid grid-cols-1">
                                 <p>{movie.title}</p>
@@ -213,34 +209,17 @@ export const ManageMovies = () => {
                                     <aside>{`${movie.duration} mins`}</aside>
                                 </div>
                             </div>
+                            <div className="grid grid-cols-2">
+                                <button className="btn btn-ghost rounded-xl p-2.5 m-auto mt-1.5 mb-1.5 bg-slate-700" onClick={() => handleClickEdit(movie)}><FaEdit /> Edit</button>
+                                <button className="btn btn-ghost rounded-xl p-2.5 m-auto mt-1.5 mb-1.5 bg-slate-700" onClick={() => handleClickDelete(movie.id)}><MdDelete /> Delete</button>
+                            </div>
                         </div>
                     )
                 }
-                </div>
             </div>
-            <div className='h-fit'>
-                {
-                    selectedMovie == null ? <></> : 
-                    <div className="grid grid-cols-2 p-2.5 m-2.5 bg-slate-700 rounded-xl lg:flex-row">
-                        <img src={selectedMovie.image_path} className="rounded-xl h-100 m-auto mt-2.5 mb-2.5"/>
-                        <div className="grid grid-cols-1 text-left h-fit p-2.5">
-                            <h2 className="text-2xl">{selectedMovie.title}</h2>
-                            <aside>{selectedMovie.release_year} | {selectedMovie.genre} | {selectedMovie.duration} minutes</aside>
-                            <p className="pt-2.5 pb-2.5">
-                                {selectedMovie.description}
-                            </p>
-                            <div className="grid grid-cols-2">
-                                <button className="btn btn-ghost rounded-xl p-2.5 m-auto mt-1.5 mb-1.5 bg-slate-700" onClick={handleClickEdit}><FaEdit /> Edit</button>
-                                <button className="btn btn-ghost rounded-xl p-2.5 m-auto mt-1.5 mb-1.5 bg-slate-700" onClick={handleClickDelete}><MdDelete /> Delete</button>
-                            </div>
-                        </div>
-                    </div>
-                }
-                <dialog id="movieModal" className='modal fixed inset-0 bg-slate-900 bg-opacity-50 flex items-center justify-center z-50'>
-                    <MovieForm edit={edit} handleClickClose={handleClickClose} handleSubmit={handleSubmit} />
-                </dialog>
-            </div>
-        </div>
+            <dialog id="movieModal" className='modal fixed inset-0 bg-slate-900 bg-opacity-50 flex items-center justify-center z-50'>
+                <MovieForm edit={edit} handleClickClose={handleClickClose} handleSubmit={handleSubmit} />
+            </dialog>
         </>
     )
 }
