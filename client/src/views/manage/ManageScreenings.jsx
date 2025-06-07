@@ -26,7 +26,12 @@ export const ManageScreenings = () => {
     const [createScreening, {isSuccess: isAddSuccess, isLoading: isAddLoading, isError: isAddError, error: errorAdd, data: dataAdd}] = useCreateScreeningMutation()
     const [updateScreening, {isSuccess: isUpdateSuccess, isLoading: isUpdateLoading, isError: isUpdateError, error: errorUpdate, data: dataUpdate}] = useUpdateScreeningMutation()
     const [deleteScreening, {isSuccess: isDeleteSuccess, isLoading: isDeleteLoading, isError: isDeleteError, error: errorDelete, data: dataDelete}] = useDeleteScreeningMutation()
-    const screeningModal = document.getElementById('screeningModal')
+    const [screeningModal, setScreeningModal] = useState(null)
+
+    useEffect(() => {
+        setScreeningModal(document.getElementById('screeningModal'))
+        console.log(screeningModal)
+    }, [])
 
     useEffect(() => {
         if (isAddSuccess) {

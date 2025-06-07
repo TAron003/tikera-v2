@@ -24,9 +24,12 @@ export const ManageMovies = () => {
     const [updateMovie, {isSuccess: isUpdateSuccess, isLoading: isUpdateLoading, isError: isUpdateError, error: errorUpdate, data: dataUpdate}] = useUpdateMovieMutation()
     const [deleteMovie, {isSuccess: isDeleteSuccess, isLoading: isDeleteLoading, isError: isDeleteError, error: errorDelete, data: dataDelete}] = useDeleteMovieMutation()
     const {data, isLoading, isError} = useGetAllMoviesQuery()
-    const movieModal = document.getElementById('movieModal')
+    const [movieModal, setMovieModal] = useState(null)
 
-    console.log(movieModal)
+    useEffect(() => {
+        setMovieModal(document.getElementById('movieModal'))
+        console.log(movieModal)
+    }, [])
 
     useEffect(() => {
         if (isAddSuccess) {
