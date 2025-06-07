@@ -149,6 +149,7 @@ const movieSlice = createSlice({
             state.total = total
             state.seating = []
             state.selectedSeats = []
+            state.accessToken = null
             localStorage.removeItem('week')
             localStorage.removeItem('day')
             localStorage.removeItem('movie')
@@ -158,6 +159,7 @@ const movieSlice = createSlice({
             localStorage.removeItem('seating')
             localStorage.removeItem('seats')
             localStorage.removeItem('user')
+            localStorage.removeItem('accessToken')
         },
         book(state) {
             state.selectedWeek = getWeek()
