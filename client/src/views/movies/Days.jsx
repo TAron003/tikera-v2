@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { setDay, setWeek } from '../../store/movieSlice'
+import { setDay, setWeek, setMovie, setScreening } from '../../store/movieSlice'
 
 export const Days = () => {
     const dispatch = useDispatch()
@@ -9,18 +9,26 @@ export const Days = () => {
     const weekDay = useSelector(state => state.movie.selectedDay)
 
     const handleClick = (day) => {
+        dispatch(setMovie(null))
+        dispatch(setScreening(null))
         dispatch(setDay(day + 1))
     }
 
     const handleClickDec = () => {
+        dispatch(setMovie(null))
+        dispatch(setScreening(null))
         dispatch(setWeek(weekNumber - 1))
     }
 
     const handleClickInc = () => {
+        dispatch(setMovie(null))
+        dispatch(setScreening(null))
         dispatch(setWeek(weekNumber + 1))
     }
 
     const handleChange = (e) => {
+        dispatch(setMovie(null))
+        dispatch(setScreening(null))
         dispatch(setWeek(parseInt(e.target.value)))
     }
 
