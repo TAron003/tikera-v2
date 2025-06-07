@@ -7,7 +7,7 @@ export const userApi = createApi({
     reducerPath: 'user',
     baseQuery: fetchBaseQuery({ 
         baseUrl: `${apiURL}api/`,
-        prepareHeaders: (headers) => {
+        prepareHeaders: (headers, { getState }) => {
             headers.set('Authorization', `Bearer ${getState().movie.accessToken}`)
             return headers
         },
