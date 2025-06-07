@@ -24,7 +24,8 @@ export const ManageMovies = () => {
     const [updateMovie, {isSuccess: isUpdateSuccess, isLoading: isUpdateLoading, isError: isUpdateError, error: errorUpdate, data: dataUpdate}] = useUpdateMovieMutation()
     const [deleteMovie, {isSuccess: isDeleteSuccess, isLoading: isDeleteLoading, isError: isDeleteError, error: errorDelete, data: dataDelete}] = useDeleteMovieMutation()
     const {data, isLoading, isError} = useGetAllMoviesQuery()
-    
+    const movieModal = document.getElementById('movieModal')
+
     useEffect(() => {
         if (isAddSuccess) {
             console.log("Movie added successfully: ", dataAdd)
@@ -73,7 +74,11 @@ export const ManageMovies = () => {
     if (isError) return <span>Error</span>
     const movies = data.data
 
-    
+    useEffect(() => {
+        if (isEditing) {
+            movieModal.showModal()
+        }
+    }, [isEditing])
 
     const handleClick = (movie) => {
         dispatch(setMovie(movie))
@@ -84,6 +89,7 @@ export const ManageMovies = () => {
         dispatch(setMovie(null))
         setEdit(null)
         setIsEditing(true)
+        movieModal.showModal()
     }
 
     const handleClickEdit = () => {
@@ -96,6 +102,7 @@ export const ManageMovies = () => {
             image_path: selectedMovie.image_path
         })
         setIsEditing(true)
+        movieModal.showModal()
     }
 
     const handleSubmit = (e, formData, edit) => {
@@ -215,9 +222,7 @@ export const ManageMovies = () => {
                         </div>
                     </div>
                 }
-                {
-                    isEditing ? <MovieForm edit={edit} setIsEditing={setIsEditing} handleSubmit={handleSubmit} /> : <></>
-                }
+                <MovieForm id={"movieModal"} edit={edit} setIsEditing={setIsEditing} handleSubmit={handleSubmit} />
             </div>
         </div>
         </>

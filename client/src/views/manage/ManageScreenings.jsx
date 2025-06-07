@@ -26,7 +26,8 @@ export const ManageScreenings = () => {
     const [createScreening, {isSuccess: isAddSuccess, isLoading: isAddLoading, isError: isAddError, error: errorAdd, data: dataAdd}] = useCreateScreeningMutation()
     const [updateScreening, {isSuccess: isUpdateSuccess, isLoading: isUpdateLoading, isError: isUpdateError, error: errorUpdate, data: dataUpdate}] = useUpdateScreeningMutation()
     const [deleteScreening, {isSuccess: isDeleteSuccess, isLoading: isDeleteLoading, isError: isDeleteError, error: errorDelete, data: dataDelete}] = useDeleteScreeningMutation()
-    
+    const screeningModal = document.getElementById('screeningModal')
+
     useEffect(() => {
         if (isAddSuccess) {
             console.log("Screening added successfully: ", dataAdd)
@@ -70,6 +71,12 @@ export const ManageScreenings = () => {
             setDeleteFail(true)
         }
     }, [isDeleteError])
+
+    useEffect(() => {
+        if (isEditing) {
+            screeningModal.showModal()
+        }
+    }, [isEditing])
     
     const {data: movieData, isLoading: isMoviesLoading, isError: isMoviesError} = useGetAllMoviesQuery()
     const {data: screeningData, isLoading: isScreeningsLoading, isError: isScreeningsError} = useGetAllScreeningsQuery()
@@ -112,6 +119,7 @@ export const ManageScreenings = () => {
         dispatch(setScreening(null))
         setEdit(null)
         setIsEditing(true)
+        screeningModal.showModal()
     }
 
     const handleClickEdit = () => {
@@ -122,6 +130,7 @@ export const ManageScreenings = () => {
             start_time: selectedScreening.start_time
         })
         setIsEditing(true)
+        screeningModal.showModal()
     }
 
     const handleSubmit = (e, formData, edit) => {
@@ -263,9 +272,7 @@ export const ManageScreenings = () => {
                         </div>
                     </div>
                 }
-                {
-                    isEditing ? <ScreeningForm edit={edit} setIsEditing={setIsEditing} handleSubmit={handleSubmit} /> : <></>
-                }
+                <ScreeningForm id={"screeningModal"} edit={edit} setIsEditing={setIsEditing} handleSubmit={handleSubmit} />
             </div>
         </div>
         </>

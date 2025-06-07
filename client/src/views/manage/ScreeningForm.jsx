@@ -30,7 +30,7 @@ export const ScreeningForm = ({edit, setIsEditing, handleSubmit}) => {
 
     return (
         <>
-            <div className='fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50'>
+            <dialog className='modal fixed inset-0 bg-slate-900 bg-opacity-50 flex items-center justify-center z-50'>
                 <div className='grid grid-cols-1 p-2.5 m-2.5 bg-slate-700 rounded-xl lg:flex-row max-w-md w-full'>
                     <h2 className='text-xl'>{edit == null ? 'Add screening' : 'Edit screening'}</h2>
                     <form className='grid grid-cols-1'>
@@ -68,7 +68,7 @@ export const ScreeningForm = ({edit, setIsEditing, handleSubmit}) => {
                         </div>
                     </form>
                 </div>
-            </div>
+            </dialog>
         </>
     )
 }
