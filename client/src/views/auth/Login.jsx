@@ -25,6 +25,7 @@ export const Login = ({setLoginSuccess}) => {
             console.log("Login successful:", data)
             dispatch(setUser(data))
             dispatch(setAccessToken(data.data.token.split('|')[1]))
+            console.log(data.data.token.split('|')[1])
             navigate('/movies')
             setLoginSuccess(true)
         }
