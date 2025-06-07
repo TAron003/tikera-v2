@@ -78,7 +78,7 @@ export const ManageMovies = () => {
         if (isEditing) {
             movieModal.showModal()
         }
-    }, [isEditing])
+    }, [isEditing, movieModal])
 
     const handleClick = (movie) => {
         dispatch(setMovie(movie))

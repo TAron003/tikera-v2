@@ -76,7 +76,7 @@ export const ManageScreenings = () => {
         if (isEditing) {
             screeningModal.showModal()
         }
-    }, [isEditing])
+    }, [isEditing, screeningModal])
     
     const {data: movieData, isLoading: isMoviesLoading, isError: isMoviesError} = useGetAllMoviesQuery()
     const {data: screeningData, isLoading: isScreeningsLoading, isError: isScreeningsError} = useGetAllScreeningsQuery()
