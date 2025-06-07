@@ -13,6 +13,7 @@ export const Movies = () => {
     const dispatch = useDispatch()
     const weekNumber = useSelector(state => state.movie.selectedWeek)
     const weekDay = useSelector(state => state.movie.selectedDay)
+    const accessToken = useSelector(state => state.movie.accessToken)
     const { data, isLoading, isError, error } = useGetMoviesByWeekQuery(weekNumber)
     if (isLoading) return <span className="loading loading-spinner loading-md"></span>
     if (isError) return <span>Error</span>
@@ -28,6 +29,8 @@ export const Movies = () => {
     const handleBookingClose = () => {
         setBookingSuccess(false)
     }
+
+    console.log(accessToken)
 
     return (
         <div className='grid grid-cols-2'>
