@@ -39,7 +39,7 @@ A fegyelmi vétség legsúlyosabb következménye a hallgató elbocsátása az e
 
 ### Plusz feladatok (+5 pont)
 - [ ] Sötét/világos mód: Az oldalon tudunk váltani sötét/világos módra (2pt)
-- [ ] Modal ablakok: Az admin felületen a vetítések hozzáadása és szerkesztése modal ablakban történik (1pt)
+- [X] Modal ablakok: Az admin felületen a vetítések hozzáadása és szerkesztése modal ablakban történik (1pt)
 - [X] Toastok: Az alkalmazás toast üzenetekkel jelzi a következő műveleteket (2pt):
   - Sikeres/sikertelen bejelentkezés
   - Sikeres kijelentkezés
