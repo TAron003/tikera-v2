@@ -279,7 +279,9 @@ export const ManageScreenings = () => {
                         </div>
                     </div>
                 }
-                <ScreeningForm id="screeningModal" edit={edit} setIsEditing={setIsEditing} handleSubmit={handleSubmit} />
+                <dialog id="screeningModal" className='modal fixed inset-0 bg-slate-900 bg-opacity-50 flex items-center justify-center z-50'>
+                    <ScreeningForm edit={edit} setIsEditing={setIsEditing} handleSubmit={handleSubmit} />
+                </dialog>
             </div>
         </div>
         </>

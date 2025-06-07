@@ -229,7 +229,9 @@ export const ManageMovies = () => {
                         </div>
                     </div>
                 }
-                <MovieForm id="movieModal" edit={edit} setIsEditing={setIsEditing} handleSubmit={handleSubmit} />
+                <dialog id="movieModal" className='modal fixed inset-0 bg-slate-900 bg-opacity-50 flex items-center justify-center z-50'>
+                    <MovieForm edit={edit} setIsEditing={setIsEditing} handleSubmit={handleSubmit} />
+                </dialog>
             </div>
         </div>
         </>
