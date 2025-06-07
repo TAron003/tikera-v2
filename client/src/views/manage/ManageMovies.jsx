@@ -26,6 +26,8 @@ export const ManageMovies = () => {
     const {data, isLoading, isError} = useGetAllMoviesQuery()
     const movieModal = document.getElementById('movieModal')
 
+    console.log(movieModal)
+
     useEffect(() => {
         if (isAddSuccess) {
             console.log("Movie added successfully: ", dataAdd)
