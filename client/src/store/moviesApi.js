@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
-const accessToken = JSON.parse(localStorage.getItem('user'))?.data.token.split('|')[1] ?? null
+const accessToken = JSON.parse(localStorage.getItem('accessToken')) ?? null
 const apiURL = import.meta.env.VITE_API_URL
 
 // Define a service using a base URL and expected endpoints

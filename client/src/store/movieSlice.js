@@ -55,6 +55,7 @@ const initialState = {
     user: localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null,
     isLoggedIn: localStorage.getItem('user') ? true : false,
     isAdmin: localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user'))?.data.user.role == 'admin' : null,
+    accessToken: localStorage.getItem('accessToken') ? JSON.parse(localStorage.getItem('accessToken')) : null,
 }
 
 const movieSlice = createSlice({
@@ -131,6 +132,7 @@ const movieSlice = createSlice({
             state.isLoggedIn = true
             state.isAdmin = action.payload.data.user.role == 'admin'
             localStorage.setItem('user', JSON.stringify(action.payload))
+            localStorage.setItem('accessToken', JSON.stringify(action.payload.data.token.split('|')[1]))
         },
         logOut(state) {
             state.user = null
