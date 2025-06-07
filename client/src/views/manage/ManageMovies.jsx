@@ -27,10 +27,8 @@ export const ManageMovies = () => {
     const [movieModal, setMovieModal] = useState(null)
 
     useEffect(() => {
-        if(isMoviesSuccess) {
+        if(isMoviesSuccess)
             setMovieModal(document.getElementById('movieModal'))
-            console.log(movieModal)
-        }
     }, [isMoviesSuccess])
 
     useEffect(() => {
@@ -86,6 +84,8 @@ export const ManageMovies = () => {
     if (isMoviesLoading) return <span className="loading loading-spinner loading-md"></span>
     if (isMoviesError) return <span>Error</span>
     const movies = data.data
+
+    console.log(movieModal)
 
     const handleClick = (movie) => {
         dispatch(setMovie(movie))

@@ -31,10 +31,8 @@ export const ManageScreenings = () => {
     const [screeningModal, setScreeningModal] = useState(null)
 
     useEffect(() => {
-        if(isMoviesSuccess && isScreeningsSuccess) {
+        if(isMoviesSuccess && isScreeningsSuccess)
             setScreeningModal(document.getElementById('screeningModal'))
-            console.log(screeningModal)
-        }
     }, [isMoviesSuccess, isScreeningsSuccess])
 
     useEffect(() => {
@@ -89,6 +87,8 @@ export const ManageScreenings = () => {
     
     if (isScreeningsLoading || isMoviesLoading) return <span className="loading loading-spinner loading-md"></span>
     if (isScreeningsError || isMoviesError) return <span>Error</span>
+
+    console.log(screeningModal)
     
     const movies = movieData?.data.filter(
         movie => movie.screenings.some(screening => screening.week_number == weekNumber && screening.week_day == weekDay)
