@@ -131,11 +131,9 @@ const movieSlice = createSlice({
             state.user = action.payload
             state.isLoggedIn = true
             state.isAdmin = action.payload.data.user.role == 'admin'
+            state.accessToken = action.payload.data.token.split('|')[1]
             localStorage.setItem('user', JSON.stringify(action.payload))
-        },
-        setAccessToken(state, action) {
-            state.accessToken = action.payload
-            localStorage.setItem('accessToken', JSON.stringify(action.payload))
+            localStorage.setItem('accessToken', JSON.stringify(action.payload.data.token.split('|')[1]))
         },
         logOut(state) {
             state.user = null
@@ -200,6 +198,6 @@ const movieSlice = createSlice({
     },
 })
 
-export const { setDay, setMovie, setScreening, setWeek, setPricings, setSeats, setUser, setAdmin, setAccessToken, logOut, book, reset } = movieSlice.actions
+export const { setDay, setMovie, setScreening, setWeek, setPricings, setSeats, setUser, setAdmin, logOut, book, reset } = movieSlice.actions
 
 export default movieSlice.reducer

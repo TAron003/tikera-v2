@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useRegisterMutation } from '../../store/authApi'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router'
-import { setUser, setAccessToken } from '../../store/movieSlice'
+import { setUser } from '../../store/movieSlice'
 import { IoMdClose } from "react-icons/io";
 
 export const Register = ({setRegisterSuccess}) => {
@@ -25,7 +25,6 @@ export const Register = ({setRegisterSuccess}) => {
         {
             console.log("Registration successful:", data)
             dispatch(setUser(data))
-            dispatch(setAccessToken(data.data.token.split('|')[1]))
             navigate('/movies')
             setRegisterSuccess(true)
         }
