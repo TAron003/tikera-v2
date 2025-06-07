@@ -7,7 +7,7 @@ const apiURL = import.meta.env.VITE_API_URL
 export const userApi = createApi({
     reducerPath: 'user',
     baseQuery: fetchBaseQuery({ 
-        baseUrl: `${apiURL}/api/`,
+        baseUrl: `${apiURL}api/`,
         prepareHeaders: (headers) => {
             headers.set('Authorization', `Bearer ${accessToken}`)
             return headers
