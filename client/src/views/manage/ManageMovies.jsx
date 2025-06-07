@@ -77,7 +77,7 @@ export const ManageMovies = () => {
     }, [isDeleteError])
 
     useEffect(() => {
-        if (isEditing)
+        if (isEditing && movieModal)
             movieModal.showModal()
         else
             movieModal.close()
