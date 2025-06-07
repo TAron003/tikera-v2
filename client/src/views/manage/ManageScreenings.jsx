@@ -26,12 +26,16 @@ export const ManageScreenings = () => {
     const [createScreening, {isSuccess: isAddSuccess, isLoading: isAddLoading, isError: isAddError, error: errorAdd, data: dataAdd}] = useCreateScreeningMutation()
     const [updateScreening, {isSuccess: isUpdateSuccess, isLoading: isUpdateLoading, isError: isUpdateError, error: errorUpdate, data: dataUpdate}] = useUpdateScreeningMutation()
     const [deleteScreening, {isSuccess: isDeleteSuccess, isLoading: isDeleteLoading, isError: isDeleteError, error: errorDelete, data: dataDelete}] = useDeleteScreeningMutation()
+    const {data: movieData, isSuccess: isMoviesSuccess, isLoading: isMoviesLoading, isError: isMoviesError} = useGetAllMoviesQuery()
+    const {data: screeningData, isSuccess: isScreeningsSuccess, isLoading: isScreeningsLoading, isError: isScreeningsError} = useGetAllScreeningsQuery()
     const [screeningModal, setScreeningModal] = useState(null)
 
     useEffect(() => {
-        setScreeningModal(document.getElementById('screeningModal'))
-        console.log(screeningModal)
-    }, [])
+        if(isMoviesSuccess && isScreeningsSuccess) {
+            setScreeningModal(document.getElementById('screeningModal'))
+            console.log(screeningModal)
+        }
+    }, [isMoviesSuccess, isScreeningsSuccess])
 
     useEffect(() => {
         if (isAddSuccess) {
@@ -83,8 +87,6 @@ export const ManageScreenings = () => {
         }
     }, [isEditing, screeningModal])
     
-    const {data: movieData, isLoading: isMoviesLoading, isError: isMoviesError} = useGetAllMoviesQuery()
-    const {data: screeningData, isLoading: isScreeningsLoading, isError: isScreeningsError} = useGetAllScreeningsQuery()
     if (isScreeningsLoading || isMoviesLoading) return <span className="loading loading-spinner loading-md"></span>
     if (isScreeningsError || isMoviesError) return <span>Error</span>
     

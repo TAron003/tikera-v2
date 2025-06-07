@@ -23,13 +23,15 @@ export const ManageMovies = () => {
     const [createMovie, {isSuccess: isAddSuccess, isLoading: isAddLoading, isError: isAddError, error: errorAdd, data: dataAdd}] = useCreateMovieMutation()
     const [updateMovie, {isSuccess: isUpdateSuccess, isLoading: isUpdateLoading, isError: isUpdateError, error: errorUpdate, data: dataUpdate}] = useUpdateMovieMutation()
     const [deleteMovie, {isSuccess: isDeleteSuccess, isLoading: isDeleteLoading, isError: isDeleteError, error: errorDelete, data: dataDelete}] = useDeleteMovieMutation()
-    const {data, isLoading, isError} = useGetAllMoviesQuery()
+    const {data, isSuccess: isMoviesSuccess, isLoading: isMoviesLoading, isError: isMoviesError} = useGetAllMoviesQuery()
     const [movieModal, setMovieModal] = useState(null)
 
     useEffect(() => {
-        setMovieModal(document.getElementById('movieModal'))
-        console.log(movieModal)
-    }, [])
+        if(isMoviesSuccess) {
+            setMovieModal(document.getElementById('movieModal'))
+            console.log(movieModal)
+        }
+    }, [isMoviesSuccess])
 
     useEffect(() => {
         if (isAddSuccess) {
@@ -81,8 +83,8 @@ export const ManageMovies = () => {
         }
     }, [isEditing, movieModal])
     
-    if (isLoading) return <span className="loading loading-spinner loading-md"></span>
-    if (isError) return <span>Error</span>
+    if (isMoviesLoading) return <span className="loading loading-spinner loading-md"></span>
+    if (isMoviesError) return <span>Error</span>
     const movies = data.data
 
     const handleClick = (movie) => {
