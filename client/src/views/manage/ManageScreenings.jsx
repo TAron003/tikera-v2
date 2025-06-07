@@ -32,7 +32,7 @@ export const ManageScreenings = () => {
 
     useEffect(() => {
         if(isMoviesSuccess && isScreeningsSuccess)
-            setScreeningModal(document.getElementById('screeningModal'))
+            setScreeningModal(document.getElementById("screeningModal"))
     }, [isMoviesSuccess, isScreeningsSuccess])
 
     useEffect(() => {

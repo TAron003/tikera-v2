@@ -28,7 +28,7 @@ export const ManageMovies = () => {
 
     useEffect(() => {
         if(isMoviesSuccess)
-            setMovieModal(document.getElementById('movieModal'))
+            setMovieModal(document.getElementById("movieModal"))
     }, [isMoviesSuccess])
 
     useEffect(() => {
