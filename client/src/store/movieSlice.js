@@ -200,6 +200,6 @@ const movieSlice = createSlice({
     },
 })
 
-export const { setDay, setMovie, setScreening, setWeek, setPricings, setSeats, setUser, setAdmin, logOut, book, reset } = movieSlice.actions
+export const { setDay, setMovie, setScreening, setWeek, setPricings, setSeats, setUser, setAdmin, setAccessToken, logOut, book, reset } = movieSlice.actions
 
 export default movieSlice.reducer
