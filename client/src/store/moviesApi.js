@@ -8,6 +8,7 @@ export const moviesApi = createApi({
     baseQuery: fetchBaseQuery({ 
         baseUrl: import.meta.env.VITE_API_URL,
         prepareHeaders: (headers, { getState }) => {
+            console.log(accessToken)
             headers.set('Authorization', `Bearer ${accessToken}`)
             return headers
         },
