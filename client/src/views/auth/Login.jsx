@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useLoginMutation } from '../../store/authApi'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router'
-import { setUser } from '../../store/movieSlice'
+import { setUser, setAccessToken } from '../../store/movieSlice'
 import { IoMdClose } from "react-icons/io";
 
 export const Login = ({setLoginSuccess}) => {
