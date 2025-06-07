@@ -1,6 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
-const accessToken = localStorage.getItem('accessToken') ? JSON.parse(localStorage.getItem('accessToken')) : null
 const apiURL = import.meta.env.VITE_API_URL
 
 // Define a service using a base URL and expected endpoints
@@ -10,8 +9,8 @@ export const moviesApi = createApi({
         baseUrl: `${apiURL}api/`,
         prepareHeaders: (headers, { getState }) => {
             console.log(`${apiURL}api/`)
-            console.log(accessToken)
-            headers.set('Authorization', `Bearer ${accessToken}`)
+            console.log(getState().movie.accessToken)
+            headers.set('Authorization', `Bearer ${getState().movie.accessToken}`)
             return headers
         },
      }),
