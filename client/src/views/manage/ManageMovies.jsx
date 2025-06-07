@@ -36,6 +36,7 @@ export const ManageMovies = () => {
             console.log("Movie added successfully: ", dataAdd)
             setIsEditing(false)
             setAddSuccess(true)
+            movieModal.close()
         }
     }, [isAddSuccess, dataAdd, setIsEditing])
 
@@ -51,6 +52,7 @@ export const ManageMovies = () => {
             setIsEditing(false)
             setEdit(null)
             setUpdateSuccess(true)
+            movieModal.close()
         }
     }, [isUpdateSuccess, dataUpdate, setIsEditing, setEdit])
 
@@ -126,7 +128,7 @@ export const ManageMovies = () => {
             updateMovie({ id, movie })
             dispatch(setMovie(movies.find(movie => movie.id == id)))
         }
-            
+        movieModal.close()
     }
 
     const handleClickDelete = () => {

@@ -40,6 +40,7 @@ export const ManageScreenings = () => {
             console.log("Screening added successfully: ", dataAdd)
             setIsEditing(false)
             setAddSuccess(true)
+            screeningModal.close()
         }
     }, [isAddSuccess, dataAdd, setIsEditing])
 
@@ -55,6 +56,7 @@ export const ManageScreenings = () => {
             setIsEditing(false)
             setEdit(null)
             setUpdateSuccess(true)
+            screeningModal.close()
         }
     }, [isUpdateSuccess, dataUpdate, setIsEditing, setEdit])
 
@@ -154,7 +156,7 @@ export const ManageScreenings = () => {
             updateScreening({ id, screening })
             dispatch(setScreening(sortedScreeningsData.find(screening => screening.id == id)))
         }
-            
+        screeningModal.close()
     }
 
     const handleClickDelete = () => {
