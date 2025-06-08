@@ -235,7 +235,7 @@ export const ManageScreenings = () => {
         </div>}
             <div className='h-fit w-fit m-auto'>
                 <Days />
-                <table className='table table-zebra bg-slate-700 rounded-xl'>
+                <table className='table table-zebra bg-slate-700 rounded-xl overflow-x-auto'>
                     <thead>
                         <tr>
                             <th>Movie</th>

@@ -1,7 +1,7 @@
 @import "tailwindcss";
 @plugin "daisyui";
 
-body
+html
 {
     background-color: var(--color-slate-950);
     color: var(--color-white);

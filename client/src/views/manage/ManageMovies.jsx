@@ -194,7 +194,7 @@ export const ManageMovies = () => {
                 <button className="btn btn-ghost" onClick={handleDeleteClose}><IoMdClose /></button>
                 </div>
             </div>}
-            <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 h-fit gap-x-5 m-auto mb-2.5 mt-2.5'>
+            <div className='grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 h-fit gap-x-5 m-auto mb-2.5 mt-2.5'>
                 <div id={`addMovie`} onClick={handleClickAdd} className="grid grid-cols-1 btn btn-ghost h-fit m-auto mt-2.5 mb-2.5 p-2.5 rounded-xl bg-slate-700 w-45">
                     <img src='https://api-tikera.codence.hu/public/storage/movies/default.jpg' className="rounded-xl h-50 m-auto mt-2.5 mb-2.5"/>
                     <button className='btn btn-ghost rounded-xl m-auto mt-1.5 mb-1.5'>

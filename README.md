@@ -33,7 +33,7 @@ A fegyelmi vétség legsúlyosabb következménye a hallgató elbocsátása az e
 - [X] Admin funkciók: Vetítés szerkesztése működik (1pt)
 - [X] Admin funkciók: Film és vetítés törlése működik (1pt)
 - [X] Admin funkciók: A filmek és vetítések módosításának és törlésének sikerességéről az admin visszajelzést kap (2pt)
-- [ ] Mobilbarát reszponzív megjelenés, mobilnézetben is jól használható az oldal (2pt)
+- [X] Mobilbarát reszponzív megjelenés, mobilnézetben is jól használható az oldal (2pt)
 
 Összesen: 30 pont (Minimum: 12 pont)
 

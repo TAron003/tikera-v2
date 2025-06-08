@@ -32,9 +32,15 @@ export const Days = () => {
         dispatch(setWeek(parseInt(e.target.value)))
     }
 
+    const handleInput = (e) => {
+        dispatch(setDay(parseInt(e.target.value) + 1))
+    }
+
+    console.log(weekDay)
+
     return (
         <>
-            <div className='grid grid-cols-7'>
+            <div className='hidden xl:block grid grid-cols-7'>
                 {
                     days.map((d, i) => 
                         <button key={i} className={`btn btn-ghost rounded-xl ${weekDay == i + 1 ? 'btn-active' : ''}`} onClick={() => handleClick(i)}>
@@ -43,6 +49,14 @@ export const Days = () => {
                     )
                 }
             </div>
+            <fieldset className="block xl:hidden fieldset fieldset-bordered w-full p-2.5 m-auto mt-1.5 mb-1.5">
+                <select defaultValue={weekDay - 1} name="weekDay" id="weekDay" className="select" onChange={(e) => handleInput(e)}>
+                    <option disabled={true}>Pick a day</option>
+                    {
+                        days.map((d, i) => <option key={i} value={i}>{d}</option>)
+                    }
+                </select>
+            </fieldset>
             <div className="items-center self-center m-auto mt-1 mb-1">
                 <button type="button" id="decrement-button" onClick={handleClickDec} className="btn btn-ghost btn-circle">
                     {'<'}

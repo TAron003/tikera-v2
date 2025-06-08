@@ -66,7 +66,7 @@ export const Register = ({setRegisterSuccess}) => {
     }
 
     return (
-        <div className="hero min-h-[80vh] bg-base-100">
+        <div className="hero min-h-[80vh] bg-slate-700 rounded-xl">
             {registerFail && <div className="toast">
                 <div className="alert alert-error">
                 <span>Registration failed. Please check your credentials.</span>
